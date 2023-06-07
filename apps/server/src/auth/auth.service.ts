@@ -34,7 +34,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const tokens = await this.generateTokens(user.id);
+    const tokens = await this.generateTokens(user._id.toString());
 
     return tokens;
   }
@@ -42,7 +42,7 @@ export class AuthService {
   async signIn(userDto: LoginUserDto) {
     const user = await this.userService.findOneByUsername(userDto.username);
 
-    const tokens = await this.generateTokens(user.id);
+    const tokens = await this.generateTokens(user._id.toString());
 
     return tokens;
   }
@@ -67,7 +67,7 @@ export class AuthService {
   verifyAccessToken(accessToken: string) {
     try {
       const payload = this.jwtService.verify(accessToken, {
-        secret: process.env.JWT_ACCESS_SECRET,
+        secret: this.configService.get('auth.secret'),
       });
 
       return payload;
@@ -78,7 +78,7 @@ export class AuthService {
 
   verifyRefreshToken(refreshToken: string) {
     const payload = this.jwtService.verify(refreshToken, {
-      secret: process.env.JWT_REFRESH_SECRET,
+      secret: this.configService.get('auth.refreshSecret'),
     });
 
     return payload;

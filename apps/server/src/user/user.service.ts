@@ -5,15 +5,17 @@ import {
 } from '@nestjs/common';
 import { InjectRepository, } from '@nestjs/typeorm';
 
+import { ObjectId } from 'mongodb';
 import { Repository } from 'typeorm';
 
+
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-// import { Room } from 'src/room/entities/room.entity';
 
 @Injectable()
 export class UserService {
+  private users: User[] = [];
+
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) { }
@@ -24,15 +26,12 @@ export class UserService {
     return users;
   }
 
-  async findOne(id: string) {
-    const user = await this.userRepository.findOne({
-      where: {
-        id: id
-      }
-    });
+  async findOne(_id: string) {
+    console.log("id should be here", _id)
+    const user = await this.userRepository.findOneBy({ _id: new ObjectId(_id) });
 
     if (!user) {
-      throw new NotFoundException(`There is no user under id ${id}`);
+      throw new NotFoundException(`There is no user under id ${_id}`);
     }
 
     return user;
@@ -58,23 +57,4 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepository.preload({
-      id,
-      ...updateUserDto,
-    });
-
-    if (!user) {
-      throw new NotFoundException(`There is no user under id ${id}`);
-    }
-
-    return this.userRepository.save(user);
-  }
-
-
-  async remove(id: string) {
-    const user = await this.findOne(id);
-
-    return this.userRepository.remove(user);
-  }
 }

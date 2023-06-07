@@ -1,6 +1,4 @@
 {
-  "eslint.validate": [
-    "json"
-  ],
+  "eslint.validate": ["json"],
   "ansible.python.interpreterPath": "/opt/homebrew/bin/python3"
 }

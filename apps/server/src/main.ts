@@ -3,13 +3,13 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
+import { ConfigService } from '@nestjs/config';
+import { useContainer } from 'class-validator';
 import { AppModule } from './app/app.module';
 import { AuthIoAdapter } from './chat/adapters/auth.adapter';
-import { useContainer } from 'class-validator';
-import { ConfigService } from '@nestjs/config';
 import { AllConfigType } from './config/config.type';
 import validationOptions from './utils/validation-options';
 

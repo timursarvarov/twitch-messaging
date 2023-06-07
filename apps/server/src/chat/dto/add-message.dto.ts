@@ -5,6 +5,5 @@ export class AddMessageDto {
   text: string;
 
   @IsOptional()
-  @IsUUID()
   userId?: string;
 }

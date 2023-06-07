@@ -17,10 +17,9 @@ export class AuthIoAdapter extends IoAdapter {
 		options.allowRequest = async (request, allowFunction) => {
 			const token = request._query?.token;
 
-			const isVerified =
-				token && (await this.authService.verifyAccessToken(token));
-			const userExists =
-				isVerified && (await this.userService.findOne(isVerified.id));
+			const isVerified = token && (await this.authService.verifyAccessToken(token));
+			// it is better to use reddis to check if user is online
+			const userExists = isVerified && (await this.userService.findOne(isVerified.id));
 
 			if (isVerified && userExists) {
 				return allowFunction(null, true);
