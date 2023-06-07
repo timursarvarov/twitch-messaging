@@ -1,13 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
 
-import NxWelcome from './nx-welcome';
+import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AppRouter } from './routes';
+
+const queryClient = new QueryClient();
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="client" />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <AppRouter />
+    </QueryClientProvider>
   );
 }
 

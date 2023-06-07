@@ -1,4 +1,4 @@
-import { UserName } from '@twitch/shared';
+
 import {
   Column,
   Entity,
@@ -15,7 +15,7 @@ export class User {
   _id: ObjectId;
 
   @Column({ length: 20 })
-  username: UserName;
+  username: string;
 
   @Column({ length: 60 })
   password: string;
