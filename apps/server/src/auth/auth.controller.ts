@@ -37,10 +37,10 @@ export class AuthController {
       );
     }
 
-    res.cookie('refreshToken', user.refreshToken, {
-      httpOnly: true,
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-    });
+    // res.cookie('refreshToken', user.refreshToken, {
+    //   httpOnly: true,
+    //   maxAge: 30 * 24 * 60 * 60 * 1000,
+    // });
 
     return user;
   }

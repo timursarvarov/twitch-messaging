@@ -15,6 +15,7 @@ import { Header } from '../Header/Header';
 import { Login } from '../Pages/Login/Login';
 import { Register } from '../Pages/Register/Register';
 import { endLoad, loadUser } from './App.slice';
+import Chat from '../Chat/Chat';
 
 export function App() {
   const { loading, user } = useStoreWithInitializer(({ app }) => app, load);
@@ -43,7 +44,7 @@ export function App() {
                 </GuestOnlyRoute>
               }
             />
-            <Route path="/" element={<div>Home</div>}></Route>
+            <Route path="/" element={<Chat/>}></Route>
 
             <Route path="*" element={<Navigate to="/" replace />}></Route>
           </Routes>
