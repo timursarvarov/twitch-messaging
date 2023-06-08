@@ -1,5 +1,5 @@
 import { IUser } from '@twitch-messaging/api-params';
-import { IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
 export class LoginUserDto implements Pick<IUser, 'password' & 'username'> {
   @IsString()
@@ -7,4 +7,5 @@ export class LoginUserDto implements Pick<IUser, 'password' & 'username'> {
 
   @IsString()
   password: string;
+
 }

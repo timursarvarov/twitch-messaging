@@ -9,6 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginUserDto } from '../user/dto/login-user.dto';
+import { ResponseCreateUserDto } from '../user/dto/response-create-user.dto copy';
 import { User } from '../user/entities/user.entity';
 import { UserService } from '../user/user.service';
 
@@ -21,7 +22,7 @@ export class AuthService {
     private configService: ConfigService,
   ) { }
 
-  async singUp(userDto: CreateUserDto) {
+  async singUp(userDto: CreateUserDto): Promise<ResponseCreateUserDto> {
     const candidate = await this.userService.findOneByUsername(
       userDto.username,
     );
@@ -35,8 +36,7 @@ export class AuthService {
     });
 
     const tokens = await this.generateTokens(user._id.toString());
-
-    return tokens;
+    return { ...tokens, ...user };
   }
 
   async signIn(userDto: LoginUserDto) {

@@ -5,7 +5,8 @@ import { IUser } from '@twitch-messaging/api-params';
 import { IsEmail, IsString } from 'class-validator';
 
 
-export class CreateUserDto implements Omit<IUser, '_id'>  {
+export class ResponseCreateUserDto implements Omit<IUser, '_id'>  {
+
   @IsString()
   readonly username: string;
 
@@ -14,5 +15,11 @@ export class CreateUserDto implements Omit<IUser, '_id'>  {
 
   @IsEmail()
   readonly email: string;
+
+  @IsString()
+  readonly accessToken?: string;
+
+  @IsString()
+  readonly refreshToken?: string;
 
 }
