@@ -12,7 +12,7 @@ import { Response } from 'express';
 
 import { AuthService } from './auth.service';
 
-import { SIGN_IN_ROUTE, SIGNUP_ROUTE } from '@twitch-messaging/api-params';
+import { SIGN_IN_ROUTE, SIGNUP_ROUTE } from '@twitch-messaging/shared';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginUserDto } from '../user/dto/login-user.dto';
 import { ResponseCreateUserDto } from '../user/dto/response-create-user.dto copy';

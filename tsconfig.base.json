@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@twitch-messaging/api-params": ["libs/api-params/src/index.ts"],
       "@twitch-messaging/shared": ["libs/shared/src/index.ts"]
     }
   },

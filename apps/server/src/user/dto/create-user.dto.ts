@@ -1,7 +1,7 @@
 
 
 // import { IUser } from 'api-interface';
-import { IUser } from '@twitch-messaging/api-params';
+import { IUser } from '@twitch-messaging/shared';
 import { IsEmail, IsString } from 'class-validator';
 
 
