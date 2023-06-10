@@ -4,7 +4,8 @@ import {
   Entity,
   ObjectId,
   ObjectIdColumn,
-  OneToMany
+  OneToMany,
+  Unique
 } from 'typeorm';
 import { Message } from '../../chat/entities/message.entity';
 
@@ -18,6 +19,7 @@ export class User {
   username: string;
 
   @Column({ length: 20 })
+  @Unique(['email'])
   email: string;
 
   @Column({ length: 60 })

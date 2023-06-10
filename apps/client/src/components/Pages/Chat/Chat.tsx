@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Socket, io } from 'socket.io-client';
-import { useStore } from '../../state/storeHooks';
+import { useStore } from '../../../state/storeHooks';
 
 const socket: Socket = io('ws://localhost:3000', {
   autoConnect: false,
@@ -51,11 +51,7 @@ function Chat() {
     };
   }, []);
 
-  return (
-    <>
-      chat
-    </>
-  );
+  return <>chat</>;
 }
 
 export default Chat;
