@@ -1,8 +1,9 @@
+import { UserForSignUpRes } from '@twitch-messaging/shared';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../types/user';
+
 
 export interface AppState {
-  user: User | null;
+  user: UserForSignUpRes | null;
   loading: boolean;
 }
 
@@ -16,7 +17,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     initializeApp: () => initialState,
-    loadUser: (state, { payload: user }: PayloadAction<User>) => {
+    loadUser: (state, { payload: user }: PayloadAction<UserForSignUpRes>) => {
       state.user = user;
       state.loading = false;
     },

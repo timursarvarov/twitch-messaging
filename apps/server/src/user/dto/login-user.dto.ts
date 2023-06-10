@@ -1,7 +1,7 @@
-import { IUser } from '@twitch-messaging/shared';
+import { UserForSignUpReq } from '@twitch-messaging/shared';
 import { IsString } from 'class-validator';
 
-export class LoginUserDto implements Pick<IUser, 'password' & 'username'> {
+export class LoginUserDto implements UserForSignUpReq {
   @IsString()
   username: string;
 

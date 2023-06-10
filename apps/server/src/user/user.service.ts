@@ -9,7 +9,7 @@ import { ObjectId } from 'mongodb';
 import { Repository } from 'typeorm';
 
 
-import { CreateUserDto } from './dto/create-user.dto';
+import { UserForRegistrationRequestDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -49,7 +49,7 @@ export class UserService {
     return user;
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: UserForRegistrationRequestDto): Promise<User> {
     const user = await this.userRepository.create({
       ...createUserDto,
     });

@@ -7,9 +7,9 @@ import { JwtService } from '@nestjs/jwt';
 
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcryptjs';
-import { CreateUserDto } from '../user/dto/create-user.dto';
+import { UserForRegistrationRequestDto } from '../user/dto/create-user.dto';
 import { LoginUserDto } from '../user/dto/login-user.dto';
-import { ResponseCreateUserDto } from '../user/dto/response-create-user.dto copy';
+import { UserForRegistrationResponseDto } from '../user/dto/response-create-user.dto copy';
 import { User } from '../user/entities/user.entity';
 import { UserService } from '../user/user.service';
 
@@ -22,7 +22,7 @@ export class AuthService {
     private configService: ConfigService,
   ) { }
 
-  async singUp(userDto: CreateUserDto): Promise<ResponseCreateUserDto> {
+  async singUp(userDto: UserForRegistrationRequestDto): Promise<UserForRegistrationResponseDto> {
     const candidate = await this.userService.findOneByUsername(
       userDto.username,
     );
@@ -34,9 +34,17 @@ export class AuthService {
       ...userDto,
       password: hashedPassword,
     });
-
     const tokens = await this.generateTokens(user._id.toString());
-    return { ...tokens, ...user };
+
+    const userForResponse: UserForRegistrationResponseDto ={
+      username: user.username,
+      _id: user._id.toString(),
+      email: user.email,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken
+    } 
+
+    return userForResponse ;
   }
 
   async signIn(userDto: LoginUserDto) {

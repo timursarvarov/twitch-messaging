@@ -1,9 +1,9 @@
-import { GenericErrors } from '../../../types/error';
-import { signUp } from '../../../services/conduit';
+import { IUser, UserForSignUpReq } from '@twitch-messaging/shared';
+import { loadUserIntoApp, signUp } from '../../../services/conduit';
 import { dispatchOnCall, store } from '../../../state/store';
 import { useStoreWithInitializer } from '../../../state/storeHooks';
+import { GenericErrors } from '../../../types/error';
 import { buildGenericFormField } from '../../../types/genericFormField';
-import { User, UserForRegistration, loadUserIntoApp } from '../../../types/user';
 import { ContainerPage } from '../../ContainerPage/ContainerPage';
 import { GenericForm } from '../../GenericForm/GenericForm';
 import {
@@ -61,7 +61,7 @@ function onUpdateField(name: string, value: string) {
   );
 }
 
-function onSignUp(user: UserForRegistration) {
+function onSignUp(user: UserForSignUpReq) {
   return async (ev: React.FormEvent) => {
     ev.preventDefault();
     store.dispatch(startSigningUp());
@@ -74,9 +74,7 @@ function onSignUp(user: UserForRegistration) {
     } else {
       // eslint-disable-next-line no-restricted-globals
       location.hash = '#/';
-      loadUserIntoApp(result as User);
+      loadUserIntoApp(result as IUser);
     }
-
-  
   };
 }

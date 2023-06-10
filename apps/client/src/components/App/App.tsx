@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Fragment } from 'react';
 import {
   HashRouter,
   Navigate,
@@ -25,38 +24,48 @@ export function App() {
   return (
     <HashRouter>
       {!loading && (
-        <Fragment>
+        <>
           <Header />
+          {user?.username}
           <Routes>
             <Route
-              path="/login"
+              path="/signin"
               element={
-                <GuestOnlyRoute userIsLogged={userIsLogged}>
+                <GuestOnlyRoute userIsLogged={!!user}>
                   <Login />
                 </GuestOnlyRoute>
               }
             />
             <Route
-              path="/register"
+              path="/signup"
               element={
-                <GuestOnlyRoute userIsLogged={userIsLogged}>
+                <GuestOnlyRoute userIsLogged={!!user}>
                   <Register />
                 </GuestOnlyRoute>
               }
             />
-            <Route path="/" element={<Chat />}></Route>
-
-            <Route path="*" element={<Navigate to="/" replace />}></Route>
+            <Route
+              path="/"
+              element={
+                <UserOnlyRoute userIsLogged={!!user}>
+                  <Chat />
+                </UserOnlyRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <Footer />
-        </Fragment>
+        </>
       )}
     </HashRouter>
   );
 }
 
 async function load() {
-  const token = localStorage.getItem('token');
+  const token = await localStorage.getItem('token');
+
+  console.log(token);
+
   if (!store.getState().app.loading || !token) {
     store.dispatch(endLoad());
     return;
@@ -70,7 +79,6 @@ async function load() {
   }
 }
 
-/* istanbul ignore next */
 function GuestOnlyRoute({
   children,
   userIsLogged,

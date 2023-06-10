@@ -1,38 +1,11 @@
-import axios from 'axios';
-import { Decoder, nullable, object, string } from 'decoders';
-import { loadUser } from '../components/App/App.slice';
-import { store } from '../state/store';
+import { UserForSignUpRes } from '@twitch-messaging/shared';
 
-export interface PublicUser {
-  username: string;
-}
+import { Decoder, object, string } from 'decoders';
 
-export interface User extends PublicUser {
-  email: string;
-  accessToken: string;
-  refreshToken: string;
-}
-
-export const userDecoder: Decoder<User> = object({
+export const userDecoder: Decoder<UserForSignUpRes> = object({
+  _id: string,
+  username: string,
   email: string,
   accessToken: string,
   refreshToken: string,
-  username: string,
 });
-
-export interface UserSettings extends PublicUser {
-  email: string;
-  password: string | null;
-}
-
-export interface UserForRegistration {
-  email: string;
-  username: string;
-  password: string;
-}
-
-export function loadUserIntoApp(user: User) {
-  localStorage.setItem('accessToken', user.accessToken);
-  axios.defaults.headers.Authorization = `Token ${user.accessToken}`;
-  store.dispatch(loadUser(user));
-}

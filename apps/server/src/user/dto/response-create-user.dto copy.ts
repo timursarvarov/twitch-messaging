@@ -1,17 +1,17 @@
 
 
 // import { IUser } from 'api-interface';
-import { IUser } from '@twitch-messaging/shared';
+import { UserForSignUpRes } from '@twitch-messaging/shared';
 import { IsEmail, IsString } from 'class-validator';
 
 
-export class ResponseCreateUserDto implements Omit<IUser, '_id'>  {
+export class UserForRegistrationResponseDto implements UserForSignUpRes {
+
+  @IsString()
+  _id: string;
 
   @IsString()
   readonly username: string;
-
-  @IsString()
-  readonly password: string;
 
   @IsEmail()
   readonly email: string;

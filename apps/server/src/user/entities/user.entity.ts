@@ -8,9 +8,10 @@ import {
   Unique
 } from 'typeorm';
 import { Message } from '../../chat/entities/message.entity';
+import { IUser } from '@twitch-messaging/shared';
 
 @Entity()
-export class User {
+export class User implements IUser {
 
   @ObjectIdColumn()
   _id: ObjectId;

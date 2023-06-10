@@ -1,9 +1,8 @@
 import React from 'react';
-import { login } from '../../../services/conduit';
+import { loadUserIntoApp, login } from '../../../services/conduit';
 import { dispatchOnCall, store } from '../../../state/store';
 import { useStoreWithInitializer } from '../../../state/storeHooks';
 import { buildGenericFormField } from '../../../types/genericFormField';
-import { User, loadUserIntoApp } from '../../../types/user';
 import { ContainerPage } from '../../ContainerPage/ContainerPage';
 import { GenericForm } from '../../GenericForm/GenericForm';
 import {
@@ -14,6 +13,7 @@ import {
   updateField,
 } from './Login.slice';
 import { GenericErrors } from '../../../types/error';
+import { IUser } from '@twitch-messaging/shared';
 
 export function Login() {
   const { errors, loginIn, user } = useStoreWithInitializer(
@@ -72,6 +72,6 @@ async function signIn(ev: React.FormEvent) {
   } else {
     // eslint-disable-next-line no-restricted-globals
     location.hash = '#/';
-    loadUserIntoApp(result as User);
+    loadUserIntoApp(result as IUser);
   }
 }

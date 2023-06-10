@@ -1,0 +1,33 @@
+import { ObjectId } from 'typeorm';
+
+export type IUser = {
+	_id: string | ObjectId;
+	username: string;
+	password: string;
+	email: string;
+	accessToken?: string;
+	refreshToken?: string;
+}
+
+export type UserForSignUpReq = Omit<IUser, 'password'>
+
+
+
+
+
+export interface UserForSignUpRes extends Omit<IUser, 'password'> { }
+
+export const enum AuthRoute {
+	SIGN_UP = '/signup',
+	SIGN_IN = '/signin',
+	AUTH_SIGN_UP = '/auth/signup',
+	AUTH_SIGN_IN = '/auth/signin',
+	AUTH = '/auth',
+}
+
+
+type OriginalType = {
+	prop1: string;
+	prop2: number;
+	prop3: boolean;
+};

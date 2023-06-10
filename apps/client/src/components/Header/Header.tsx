@@ -1,7 +1,7 @@
+import { UserForSignUpReq } from '@twitch-messaging/shared';
 import { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useStore } from '../../state/storeHooks';
-import { User } from '../../types/user';
 
 export function Header() {
   const { user } = useStore(({ app }) => app);
@@ -40,17 +40,12 @@ function NavItem({
 function GuestLinks() {
   return (
     <Fragment>
-      <NavItem text="Sign in" href="/login" />
-      <NavItem text="Sign up" href="/register" />
+      <NavItem text="Sign in" href="/signin" />
+      <NavItem text="Sign up" href="/signup" />
     </Fragment>
   );
 }
 
-function UserLinks({ user: { username } }: { user: User }) {
-  return (
-    <Fragment>
-      <NavItem text="Settings" href="/settings" icon="ion-gear-a" />
-      <NavItem text={`${username}`} href={`/profile/${username}`} />
-    </Fragment>
-  );
+function UserLinks({ user: { username } }: { user: UserForSignUpReq }) {
+  return <NavItem text={`${username}`} href={`/profile/${username}`} />;
 }
