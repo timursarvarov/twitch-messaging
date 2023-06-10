@@ -7,3 +7,8 @@ export interface IMessage {
 	delivered?: boolean;
 	eventName?: string;
 }
+
+export interface MessageReq {
+	userId: string;
+	text: string;
+}

@@ -32,10 +32,10 @@ export const Messages = ({
         return (
           <div key={message._id + index} className="mb-4">
             <div
-              className={determineMessageStyle(user, message?.user?._id).sender}
+              className={determineMessageStyle(user, message.user._id).sender}
             >
               <span className="text-sm text-gray-400">
-                {message?.user?.username}
+                {message.user.username}
               </span>
               <span className="text-sm text-gray-400">{' ' + '•' + ' '}</span>
               <span className="text-sm text-gray-400">
@@ -44,12 +44,13 @@ export const Messages = ({
             </div>
             <div
               className={
-                determineMessageStyle(user, message?.user?._id).message
+                determineMessageStyle(user, message.user._id).message
               }
             >
               <p className="text-white">{message.text}</p>
             </div>
-            {user && message?.user?._id === user._id && (
+            
+            {user && message.user._id === user._id && (
               <p className="text-right text-xs text-gray-400">
                 {message.delivered ? 'Delivered' : 'Not delivered'}
               </p>

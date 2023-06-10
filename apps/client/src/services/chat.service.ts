@@ -1,4 +1,4 @@
-import { IMessage, UserForSignUpRes } from '@twitch-messaging/shared';
+import { IMessage, MessageReq, UserForSignUpRes } from '@twitch-messaging/shared';
 import { useEffect, useState } from 'react';
 import { Socket } from 'socket.io-client';
 
@@ -52,7 +52,11 @@ function useChatService({ socket, user }: IChatService) {
   }, [socket, user]);
 
   const sendMessage = (message: string) => {
-    socket.emit('chatMessage', { user, text: message });
+    if (!user) {
+      throw new Error('User is not defined');
+    };
+    const newMessage: MessageReq = { userId: user._id.toString(), text: message }
+    socket.emit('message', newMessage);
   };
 
   return {

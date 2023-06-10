@@ -3,6 +3,7 @@ import useChatService from '../../../services/chat.service';
 import { useStore } from '../../../state/storeHooks';
 import { ChatLayout } from '../../Layouts/chat.layout';
 import { Messages } from '../../Messages/Messages';
+import { MessageForm } from '../../MessageForm/Message.form';
 
 const socket: Socket = io('ws://localhost:3000', {
   autoConnect: false,
@@ -33,6 +34,7 @@ function Chat() {
       ) : (
         <Messages messages={messages} user={user} />
       )}
+      <MessageForm sendMessage={sendMessage}></MessageForm>
     </ChatLayout>
   );
 }
