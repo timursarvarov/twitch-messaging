@@ -87,7 +87,7 @@ function GuestOnlyRoute({
   children: JSX.Element | JSX.Element[];
   userIsLogged: boolean;
 } & RouteProps) {
-  return userIsLogged ? <Navigate to="/" replace /> : children;
+  return userIsLogged ? <Navigate to="/" replace /> : <>{children}</>;
 }
 
 /* istanbul ignore next */
@@ -99,5 +99,5 @@ function UserOnlyRoute({
   children: JSX.Element | JSX.Element[];
   userIsLogged: boolean;
 } & RouteProps) {
-  return !userIsLogged ? <Navigate to="/" replace /> : children;
+  return !userIsLogged ? <Navigate to="/" replace /> : <>{children}</>;
 }
