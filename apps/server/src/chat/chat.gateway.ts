@@ -13,6 +13,7 @@ import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
 import { ChatService } from './chat.service';
 import { AddMessageDto } from './dto/add-message.dto';
+import { IMessage } from '@twitch-messaging/shared';
 
 const defaultRoom = 'default';
 
@@ -36,6 +37,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const token = socket.handshake.query?.token?.toString();
     const payload = this.authService.verifyAccessToken(token);
     this.logger.log(`Socket connected: ${socket.id}`);
+
     const user = payload && (await this.userService.findOne(payload.id));
 
     if (!user) {
@@ -63,8 +65,8 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     payload: AddMessageDto
   ): Promise<boolean> {
     this.logger.log(payload);
-    this.server.emit('message', payload);
-    await this.chatService.addMessage(payload);
+    const message = await this.chatService.addMessage(payload);
+    this.server.emit('message', { message });
     return true;
   }
 
@@ -77,10 +79,10 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (!user) return;
 
 
-    const messages = await this.chatService.getMessages(limit);
+    const messages: IMessage[] = await this.chatService.getMessages(limit, userId);
 
     client.join(defaultRoom);
 
-    client.emit('message', messages);
+    client.emit('join', messages);
   }
 };

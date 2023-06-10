@@ -9,11 +9,11 @@ export type IUser = {
 	refreshToken?: string;
 }
 
-export type UserForSignUpReq = Omit<IUser, 'password'>
+export interface UserForSignUpReq extends Omit<IUser, 'password' | '_id' | 'accessToken' | 'refreshToken'> { }
 
-
-
-
+export interface UserForMessageRes extends Omit<IUser, 'password' | '_id'> {
+	userId: string;
+}
 
 export interface UserForSignUpRes extends Omit<IUser, 'password'> { }
 
@@ -24,10 +24,3 @@ export const enum AuthRoute {
 	AUTH_SIGN_IN = '/auth/signin',
 	AUTH = '/auth',
 }
-
-
-type OriginalType = {
-	prop1: string;
-	prop2: number;
-	prop3: boolean;
-};

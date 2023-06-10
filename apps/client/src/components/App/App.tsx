@@ -9,7 +9,6 @@ import {
 import { getUser } from '../../services/conduit';
 import { store } from '../../state/store';
 import { useStoreWithInitializer } from '../../state/storeHooks';
-import { Footer } from '../Footer/Footer';
 import { Header } from '../Header/Header';
 import Chat from '../Pages/Chat/Chat';
 import { Login } from '../Pages/Login/Login';
@@ -54,7 +53,6 @@ export function App() {
             />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-          <Footer />
         </>
       )}
     </HashRouter>
@@ -63,8 +61,6 @@ export function App() {
 
 async function load() {
   const token = await localStorage.getItem('token');
-
-  console.log(token);
 
   if (!store.getState().app.loading || !token) {
     store.dispatch(endLoad());

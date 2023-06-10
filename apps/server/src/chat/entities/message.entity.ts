@@ -19,7 +19,7 @@ export class Message {
   text: string;
 
   @CreateDateColumn()
-  created_at: Date;
+  timeSent: Date;
 
   @JoinTable()
   @ManyToOne(() => User, (user: User) => user.messages)

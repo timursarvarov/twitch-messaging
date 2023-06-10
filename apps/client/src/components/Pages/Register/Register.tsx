@@ -66,9 +66,6 @@ function onSignUp(user: UserForSignUpReq) {
     ev.preventDefault();
     store.dispatch(startSigningUp());
     const result = await signUp(user);
-
-    console.log(result);
-
     if (result instanceof Error) {
       store.dispatch(updateErrors(result as GenericErrors));
     } else {

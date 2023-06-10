@@ -27,7 +27,6 @@ export class UserService {
   }
 
   async findOne(_id: string) {
-    console.log("id should be here", _id)
     const user = await this.userRepository.findOneBy({ _id: new ObjectId(_id) });
 
     if (!user) {
